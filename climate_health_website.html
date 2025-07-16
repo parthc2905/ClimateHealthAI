@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClimateHealth AI - Building a Healthier, Climate-Resilient Future</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5e8 100%);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1a3b1e, #2c5530, #4a7c59);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(44, 85, 48, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo::before {
+            content: "🌱";
+            margin-right: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #a8d5ba;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        .section {
+            padding: 4rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 50%, #a8d5ba 100%);
+            text-align: center;
+            padding: 6rem 2rem;
+            margin-top: -80px;
+            padding-top: 10rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(44,85,48,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #1a3b1e;
+            animation: fadeInUp 1s ease-out;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            color: #2c5530;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .tagline {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #2c5530, #4a7c59);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin: 0 1rem;
+            box-shadow: 0 4px 15px rgba(44,85,48,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(44,85,48,0.4);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            border: 2px solid #2c5530;
+            color: #2c5530;
+        }
+
+        .cta-secondary:hover {
+            background: #2c5530;
+            color: white;
+        }
+
+        /* Problem Section */
+        .problem {
+            background: white;
+        }
+
+        .problem h2 {
+            color: #d32f2f;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .health-risks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .risk-card {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border-left: 5px solid #d32f2f;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .risk-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #d32f2f, #f44336, #d32f2f);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .risk-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .risk-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(211,47,47,0.2);
+        }
+
+        .risk-card h3 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .risk-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .sdg-badge {
+            background: #1976d2;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 2rem;
+        }
+
+        /* Solution Section */
+        .solution {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        }
+
+        .solution h2 {
+            color: #1976d2;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .solution-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(25,118,210,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(25,118,210,0.05), rgba(25,118,210,0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background: white;
+        }
+
+        .how-it-works h2 {
+            color: #2c5530;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #2c5530, #4a7c59);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+            box-shadow: 0 5px 15px rgba(44,85,48,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(135deg, #4a7c59, #2c5530);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .step:hover .step-number::before {
+            opacity: 1;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Impact Section */
+        .impact {
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+        }
+
+        .impact h2 {
+            color: #7b1fa2;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .impact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Future Scope Section */
+        .future-scope {
+            background: white;
+        }
+
+        .future-scope h2 {
+            color: #2c5530;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .future-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid #2c5530;
+        }
+
+        /* Get Involved Section */
+        .get-involved {
+            background: linear-gradient(135deg, #2c5530, #4a7c59);
+            color: white;
+            text-align: center;
+        }
+
+        .get-involved h2 {
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .involvement-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .option-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: white;
+            color: #2c5530;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-button {
+                display: block;
+                margin: 1rem auto;
+                width: fit-content;
+            }
+
+            .section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">ClimateHealth AI</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#impact">Impact</a></li>
+                <li><a href="#contact">Get Involved</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Building a Healthier, Climate-Resilient Future with AI</h1>
+                <p class="tagline">Harnessing AI to protect health in a changing climate</p>
+                <p>Our AI-driven platform predicts, prevents, and manages climate-related health risks, empowering communities and healthcare systems to adapt and thrive in a changing world.</p>
+                <a href="#solution" class="cta-button">Learn More</a>
+                <a href="#contact" class="cta-button cta-secondary">Get Involved</a>
+            </div>
+        </section>
+
+        <section id="problem" class="section problem">
+            <h2>The Climate Health Crisis</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #666;">
+                Climate change is creating unprecedented health challenges worldwide. Current reactive systems are inadequate to protect vulnerable populations.
+            </p>
+            
+            <div class="health-risks">
+                <div class="risk-card">
+                    <div class="risk-icon">🌡️</div>
+                    <h3>Heat-Related Illnesses</h3>
+                    <p>Rising temperatures increase heat stroke, dehydration, and cardiovascular stress, particularly among elderly and outdoor workers.</p>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-icon">🦟</div>
+                    <h3>Vector-Borne Diseases</h3>
+                    <p>Changing climate patterns expand the range of disease vectors, increasing malaria, dengue, and Zika transmission.</p>
+                </div>
+                <div class="risk-card">
+                    <div class="risk-icon">🌬️</div>
+                    <h3>Respiratory Problems</h3>
+                    <p>Worsening air quality from wildfires, dust storms, and pollution exacerbates asthma and lung diseases.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <div class="sdg-badge">
+                    🎯 Aligned with UN SDG-13: Climate Action
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="section solution">
+            <h2>Our AI-Powered Solution</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #1976d2;">
+                A comprehensive platform that transforms reactive healthcare into proactive, predictive protection.
+            </p>
+
+            <div class="solution-features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔮</div>
+                    <h3>Predictive Analytics</h3>
+                    <p>AI models analyze climate, environmental, and health data to predict risks before they occur.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Smart Alerts</h3>
+                    <p>Timely, localized health alerts delivered via SMS, apps, and community channels.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏥</div>
+                    <h3>Decision Support</h3>
+                    <p>AI-powered tools assist healthcare workers with diagnosis and treatment recommendations.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; background: linear-gradient(135deg, #ffffff, #f8f9fa); padding: 3rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 3rem;">
+                <h3 style="color: #1976d2; margin-bottom: 2rem; font-size: 2rem;">Key Benefits</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div style="padding: 1.5rem; background: rgba(25,118,210,0.1); border-radius: 10px;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">⚡</div>
+                        <p><strong>Proactive:</strong> Prevent health crises before they occur</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: rgba(25,118,210,0.1); border-radius: 10px;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">🌍</div>
+                        <p><strong>Inclusive:</strong> Works in low-resource settings with basic phones</p>
+                    </div>
+                    <div style="padding: 1.5rem; background: rgba(25,118,210,0.1); border-radius: 10px;">
+                        <div style="font-size: 2rem; margin-bottom: 1rem;">📈</div>
+                        <p><strong>Scalable:</strong> Adapts to different regions and health systems</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="section how-it-works">
+            <h2>How It Works</h2>
+            <div class="workflow">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">📊</div>
+                    <h3>Data Collection</h3>
+                    <p>Real-time environmental, health, and social data from multiple sources</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">🤖</div>
+                    <h3>AI Processing</h3>
+                    <p>Advanced machine learning models analyze patterns and predict health risks</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">🚨</div>
+                    <h3>Alerts & Insights</h3>
+                    <p>Personalized, actionable health guidance delivered through multiple channels</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">🎯</div>
+                    <h3>Decision Support</h3>
+                    <p>Evidence-based recommendations for individuals, healthcare workers, and policymakers</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact" class="section impact">
+            <h2>Expected Impact</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <div class="impact-icon">❤️</div>
+                    <h3>Health Outcomes</h3>
+                    <p>Reduced climate-related hospitalizations and mortality through early intervention and prevention</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">💰</div>
+                    <h3>Economic Benefits</h3>
+                    <p>Lower healthcare costs and increased productivity through prevention-focused approach</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">🏛️</div>
+                    <h3>Policy Support</h3>
+                    <p>Data-driven insights inform climate adaptation and public health planning</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-icon">🌍</div>
+                    <h3>Global Resilience</h3>
+                    <p>Strengthened healthcare systems better equipped to handle climate challenges</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="future-scope" class="section future-scope">
+            <h2>Future Scope</h2>
+            <div class="future-grid">
+                <div class="future-card">
+                    <h3>🌐 Global Expansion</h3>
+                    <p>Scale to cover more regions worldwide with localized adaptations and partnerships</p>
+                </div>
+                <div class="future-card">
+                    <h3>🧠 Advanced AI</h3>
+                    <p>Integrate mental health predictions, nutrition analysis, and pollution impact modeling</p>
+                </div>
+                <div class="future-card">
+                    <h3>🤝 Collaboration</h3>
+                    <p>Partner with governments, NGOs, and international organizations for broader impact</p>
+                </div>
+                <div class="future-card">
+                    <h3>📈 Long-term Adaptation</h3>
+                    <p>Support evidence-based climate adaptation policies and sustainable health systems</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section get-involved">
+            <h2>Get Involved</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 3rem;">
+                Join us in building a healthier, more resilient future. Whether you're a government, NGO, researcher, or concerned citizen, there's a role for you.
+            </p>
+
+            <div class="involvement-options">
+                <div class="option-card">
+                    <h3>🏛️ Governments & NGOs</h3>
+                    <p>Partner with us to implement climate-health solutions in your region</p>
+                </div>
+                <div class="option-card">
+                    <h3>👥 Individuals</h3>
+                    <p>Stay updated on our progress and learn how to protect your community</p>
+                </div>
+                <div class="option-card">
+                    <h3>💝 Donors & Funders</h3>
+                    <p>Support our mission to make climate-health protection accessible to all</p>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3 style="margin-bottom: 2rem;">Contact Us</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="organization">Organization</label>
+                        <input type="text" id="organization" name="organization">
+                    </div>
+                    <div class="form-group">
+                        <label for="interest">Interest Area *</label>
+                        <select id="interest" name="interest" required>
+                            <option value="">Select your interest...</option>
+                            <option value="partnership">Partnership Opportunities</option>
+                            <option value="funding">Funding & Investment</option>
+                            <option value="research">Research Collaboration</option>
+                            <option value="updates">Updates & Newsletter</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required placeholder="Tell us about your interest in climate-health solutions..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ClimateHealth AI. Building a healthier, climate-resilient future for all.</p>
+        <p>🌱 Aligned with UN SDG-13: Climate Action</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Thank you for your interest! We will get back to you soon.');
+                this.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+
+        // Enhanced intersection observer with different animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add different animation classes based on index
+                    if (index % 3 === 0) {
+                        entry.target.classList.add('fade-in');
+                    } else if (index % 3 === 1) {
+                        entry.target.classList.add('slide-in-left');
+                    } else {
+                        entry.target.classList.add('slide-in-right');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all section elements
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Add pulse animation to CTA buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            setInterval(() => {
+                button.classList.add('pulse');
+                setTimeout(() => {
+                    button.classList.remove('pulse');
+                }, 2000);
+            }, 5000);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            hero.style.transform = `translateY(${rate}px)`;
+        });
+
+        // Counter animation for impact numbers
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                element.textContent = Math.floor(start);
+                if (start >= target) {
+                    clearInterval(timer);
+                    element.textContent = target;
+                }
+            }, 16);
+        }
+
+        // Trigger counter animation when impact section is visible
+        const impactObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Add counter animations if needed
+                    console.log('Impact section visible');
+                    impactObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const impactSection = document.querySelector('.impact');
+        if (impactSection) {
+            impactObserver.observe(impactSection);
+        }
+    </script>
+</body>
+</html>
